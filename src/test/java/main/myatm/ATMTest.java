@@ -165,6 +165,23 @@ public class ATMTest {
 
     }
 
+    @Test
+    public void testGetCashAllOk() throws NoCardInserted, NotEnoughMoneyInATM, NotEnoughMoneyInAccount {
+
+        double amount =1000;
+        ATM atm = new ATM(1000);
+
+        Card card = mock(Card.class);
+        int pinCode = 1111;
+        Account account = mock(Account.class);
+        double actualValue = 1000;
+        when(account.getBalance()).thenReturn(actualValue);
+        when(card.getAccount()).thenReturn(account);
+        when(card.isBlocked()).thenReturn(false);
+        when(card.checkPin(pinCode)).thenReturn(true);
+        atm.validateCard(card,pinCode);
+        atm.getCash(amount);
+    }
 
 
 
